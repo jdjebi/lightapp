@@ -1,0 +1,23 @@
+<?php
+
+namespace App\Http\Controllers\LightApp;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Resac\Auth2;
+
+
+class HubController extends Controller
+{
+    public function index(){
+
+      $title2 = 'HUB';
+
+      $user = Auth2::user();
+
+      return view('lightapp.hub',[
+        'title2' => $title2,
+        'user' => $user
+      ]);
+    }
+}
