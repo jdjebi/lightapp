@@ -70,7 +70,7 @@ Route::middleware("auth")->group(function(){
 
   Route::get('/','LightApp\HubController@index')->name('lightapp.hub');
 
-  Route::get('/feed','ActuController@feed')->name('app.feed');
+  Route::get('/{domaine_slug}','LightApp\DomaineController@index')->name('lightapp.domaine');
 
   Route::get('/profil','UserController@profil')->name('profil')->middleware('auth');
 
@@ -92,7 +92,7 @@ Route::middleware("auth")->group(function(){
 
 });
 
-Route::get('/deconnexion','AuthController@logout')->name('logout');
+Route::get('user/deconnexion','AuthController@logout')->name('logout');
 
 
 /* Administration */
@@ -208,4 +208,22 @@ if(Auth::check()){
   dump('Utilisateur non-sconnecté');
 }
 
+});
+
+
+
+Route::prefix('api')->group(function () {
+    Route::name('api.')->group(function () {
+
+      Route::namespace('LightApp\Api')->group(function () {
+
+          Route::post('domaine/create','DomaineApiController@create')->name('domaine.create');
+
+      });
+
+      Route::get('get/v1/users','AdminController@api_get_user_list')->name('api_get_user_list');
+
+      Route::post('admin/login','AdminController@api_login')->name('admin_api_login');
+
+    });
 });

@@ -1,4 +1,4 @@
-@extends('lightapp.page')
+@extends('lightapp.page2')
 
 
 @section('extras_style')
@@ -41,15 +41,7 @@ body{
 @endsection
 
 @section('content')
-<div class="">
-  <div class="d-flex justify-content-between">
-    <div class=""></div>
-    <div class="pt-2 pr-4">
-      <a href="#"><span class="text-muted">{{ $user->fullname }}</span></a>
-      <a class="ml-4" href="{{ route('logout') }}"><span class="text-muted"><i class="fa fa-power-off"></i> Déconnexion</span></a>
-    </div>
-  </div>
-</div>
+
 <div class="container">
   <div class="row">
     <div class="col-md-12">
@@ -73,32 +65,35 @@ body{
         </div>
       </a>
 
+      @foreach ($domaines as $domaine)
+        <a class='domaine-btn-link' href="{{ route('lightapp.domaine',$domaine->nom) }}">
+          <div class="domaine-btn">
+            <div class="ico text-center">
+              <i class="fa fa-home fa-4x"></i>
+            </div>
+            <div class="desc">
+               {{ $domaine->nom }}
+            </div>
+          </div>
+        </a>
+      @endforeach
 
-      <div class="domaine-btn">
-        <div class="ico text-center">
-          <i class="fa fa-home fa-4x"></i>
-        </div>
-        <div class="desc">
-          ESATIC
-        </div>
-      </div>
     </div>
   </div>
 </div>
 
-<!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
   <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title text-dark" id="exampleModalLabel">Nouveau domaine</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form class="" action="index.html" method="post">
-          @csrf
+    <form id='v-form' v-on:submit.prevent="onSubmit">
+      @csrf
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-dark" id="exampleModalLabel">Nouveau domaine</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
           <div class="text-center">
             <div class="">
               <img class="text-center" src="{{ asset('asset/imgs/undraw/new-domaine.svg') }}" alt="" width="100px">
@@ -108,17 +103,75 @@ body{
             </div>
             <div class="">
               <div class="form-group mb-4 mt-2">
-                <input class="form-control" type="text" name="label" id="label" placeholder="Nom du domaine">
+                <input class="form-control" type="text" v-bind:value="nom" name="nom" id="label" placeholder="Nom du domaine" required>
               </div>
             </div>
           </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-        <button type="button" class="btn btn-primary">Créer</button>
-      </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" v-bind:disabled="submit_btn">Annuler</button>
+          <button id='submit-btn' type="submit" class="btn btn-primary" v-bind:disabled="submit_btn">
+            <span>Créer</span>
+            <div v-if="submit_btn" class="loader spinner-border text-white spinner-border-sm d-none" role="status" >
+              <span class="sr-only">Loading...</span>
+            </div>
+          </button>
+        </div>
     </div>
+  </form>
   </div>
 </div>
+@endsection
+
+@section('scripts')
+
+<script src="asset/js/vue.js" type="text/javascript"></script>
+<script type="text/javascript">
+
+var vf_data = {
+  url: '{{ route('api.domaine.create') }}',
+  submit_btn: false,
+  nom: ''
+};
+
+var vf = new Vue({
+  el: "#v-form",
+
+  data:vf_data,
+
+  beforeCreate: function(){
+    $('#submit-btn .loader').removeClass("d-none");
+  },
+
+  methods:{
+    onSubmit: function(event){
+      var form_data = $(event.target).serializeArray();
+
+      this.submit_btn = true;
+
+      $.post({
+        url: this.url,
+        data: form_data,
+        dataType: 'json',
+        success: this.onSuccess,
+        error: this.onError
+      });
+
+    },
+    onSuccess: function(data,status){
+      console.log(data);
+      this.nom = '';
+      this.submit_btn = false;
+      window.location = '';
+    },
+    onError: function (data,status,error){
+      console.log(error);
+      this.nom = '';
+      this.submit_btn = false;
+    },
+  }
+
+});
+</script>
+
 @endsection

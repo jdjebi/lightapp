@@ -11,18 +11,15 @@
         LightApp
       @endif
     </title>
+    <link rel="stylesheet" href="{{ asset('asset/css/bootstrap/4.5/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('asset/css/cerulean/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('asset/css/fontawsome/all.css') }}">
-    <link rel="stylesheet" href="{{ asset('asset/mobile/css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('asset/css/resac/resac.css') }}">
-    <style media="screen">
-      body{
-          padding-top: 64px
-      }
-    </style>
+    <link rel="stylesheet" href="{{ asset('asset/css/resac/admin/dashboard.css') }}">
     @yield('extras_style')
   </head>
   <body>
+    @include('lightapp.nav')
     @yield('content')
     <script src="{{ asset('asset/js/jquery-3.4.1.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('asset/js/bootstrap.min.js') }}" type="text/javascript"></script>
