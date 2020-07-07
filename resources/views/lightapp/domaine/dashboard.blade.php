@@ -22,16 +22,15 @@
 
       <div id='action-pad' class="d-flex justify-content-around">
 
-        <div class="border action-pad-item">
-          <div class="">
-
-          </div>
-          <div class="bg-white">
+        <div class="border action-pad-item p-4">
+          <div>
             <div class="text-center">
-              <strong class="font-20">Batiment</strong>
+              <img class="resac-w-100" src="{{ asset('asset/imgs/app/batiment.svg') }}" alt="">
             </div>
-            <div class="p-2 text-center">
-              <button type="button" class="btn btn-primary btn-sm">Créer</button>
+          </div>
+          <div class="text-center">
+            <div class="text-muted">
+              <span class="font-20">Batiment</span>
             </div>
           </div>
         </div>
