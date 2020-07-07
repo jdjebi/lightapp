@@ -16,7 +16,7 @@
     <ul class="nav flex-column">
       <li class="nav-item">
         <a class="nav-link active" href="#">
-          <span data-feather="home"></span>
+          <i class="fa fa-tachometer-alt"></i>
           Tableau de bord
         </a>
       </li>
@@ -31,19 +31,19 @@
     <ul class="nav flex-column mb-2">
       <li class="nav-item">
         <a class="nav-link" href="">
-          <span data-feather="file-text"></span>
+          <i class="fa fa-building"></i>
           Batiments
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="">
-          <span data-feather="file-text"></span>
+          <i class="fa fa-store-alt"></i>
           Salles
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="">
-          <span data-feather="file-text"></span>
+          <i class="fa fa-toolbox"></i>
           Appareils
         </a>
       </li>
