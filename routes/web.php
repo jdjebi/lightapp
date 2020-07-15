@@ -9,6 +9,12 @@ use App\Models\SearchUserIndex;
 use Resac\Auth2;
 
 
+Route::get('tests/lumiere1',function(Request $request){
+
+  return view('lightapp.tests.light1');
+
+})->name('tests.light1');
+
 
 Route::middleware("guest")->group(function(){
 
