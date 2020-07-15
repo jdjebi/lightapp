@@ -105,12 +105,12 @@ function allumer_led(){
   $.get({
 
     url: allumer_led_url,
-    dataType: 'plain',
+    dataType: 'html',
     success: function(){
       console.log("Allumage ok");
     },
     error: function(){
-      console.log("Eteindre ok");
+      console.log("Erreur");
     }
 
   });
@@ -122,10 +122,10 @@ function eteindre_led(){
     url: eteindre_led_url,
     dataType: 'html',
     success: function(){
-      console.log("Allumage ok");
+      console.log("Eteindre ok");
     },
     error: function(){
-      console.log("Eteindre ok");
+      console.log("Erreur");
     }
 
   });
